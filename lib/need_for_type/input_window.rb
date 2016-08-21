@@ -1,15 +1,11 @@
 require 'curses'
+require 'need_for_type/window'
 
 module NeedForType
-  class InputWindow < Curses::Window
+  class InputWindow < Window
 
     def initialize
-      super(Curses.lines / 3, Curses.cols, Curses.lines / 1.5, 0)
-
-      self.box("|", "-")
-      self.keypad = true
-      self.refresh
-
+      super(Curses.lines / 3, Curses.cols, Curses.lines / 1.5, 0, true)
       @content = ''
     end
 
@@ -18,22 +14,11 @@ module NeedForType
     end
 
     def add_input_content(content)
-      self.clear
-      self.box('|', '-')
-      self.setpos(1, 2)
-      self.addstr(content)
-      self.refresh
+      self.render_display { self.addstr(content) }
     end
 
     def beep
       Curses.beep
-    end
-
-    def render
-      self.clear
-      self.box('|', '-')
-      self.setpos(1, 2)
-      self.refresh
     end
   end
 end

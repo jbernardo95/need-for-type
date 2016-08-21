@@ -3,8 +3,7 @@ module NeedForType
     attr_accessor :content
 
     def initialize(difficulty)
-      @difficulty = difficulty_to_s(difficulty)
-      @path = "#{NeedForType::GEM_ROOT}/assets/#{@difficulty}/"
+      @path = "#{NeedForType::GEM_ROOT}/assets/#{difficulty_to_s(difficulty)}/"
     end
 
     # Reads random file from difficulty folder

@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = "need_for_type"
   spec.version       = NeedForType::VERSION
   spec.authors       = ["tiagonbotelho", "jbamaro"]
-  spec.email         = ["tiagonbotelho@hotmail.com", "jbamaro95@gmail.com"]
+  spec.email         = ["tiagonbotelho@gmail.com", "jbamaro95@gmail.com"]
 
   spec.summary       = %q{A terminal typeracer}
   spec.description   = %q{A terminal typeracer}

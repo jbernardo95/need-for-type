@@ -5,6 +5,7 @@ require 'need_for_type'
 require 'need_for_type/typer'
 
 Curses.init_screen
+Curses.start_color
 Curses.noecho
 
 begin

@@ -9,10 +9,10 @@ module NeedForType
   class Typer
 
     def initialize
-      @display_window = NeedForType::DisplayWindow.new
-      @input_window = NeedForType::InputWindow.new
+      display_window = NeedForType::DisplayWindow.new
+      input_window = NeedForType::InputWindow.new
 
-      @state = NeedForType::States::Menu.new(@display_window, @input_window)
+      @state = NeedForType::States::Menu.new(display_window, input_window)
     end
 
     def play

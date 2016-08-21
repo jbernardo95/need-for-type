@@ -4,7 +4,7 @@ require 'need_for_type/states'
 require 'need_for_type/file_manager'
 
 module NeedForType::States
-  class Game < State 
+  class Game < State
 
     def initialize(display_window, input_window, difficulty)
       super(display_window, input_window)
@@ -26,9 +26,9 @@ module NeedForType::States
     private
 
     def handle_init_game
-      @file_manager = NeedForType::FileManager.new(@difficulty)
+      file_manager = NeedForType::FileManager.new(@difficulty)
 
-      @text = @file_manager.get_random_text
+      @text = file_manager.get_random_text
       prepare_words
       @display_window.render_game_text(@text)
 
@@ -48,6 +48,7 @@ module NeedForType::States
       if compare(temp) && !ended?(temp)
         @word = temp
         @input_window.add_input_content(temp)
+        @display_window.render_ingame_text(@file_words, @words_completed)
       elsif ended?(temp)
         @word = temp
         @words_completed+=1
@@ -55,10 +56,12 @@ module NeedForType::States
         if @input_words.size == @file_words.size
           @state = :menu
         else
+          @display_window.render_ingame_text(@file_words, @words_completed)
           reset_input
         end
       else
-        @input_window.add_input_content(temp)
+        @display_window.render_ingame_text(@file_words, @words_completed, true)
+        @input_window.add_input_content(@word)
         @input_window.beep
       end
 
@@ -66,7 +69,7 @@ module NeedForType::States
     end
 
     def reset_input
-      @input_window.render
+      @input_window.render_display
       @input_words << @word
       @word = ""
     end
