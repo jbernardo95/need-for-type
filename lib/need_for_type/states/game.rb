@@ -5,7 +5,6 @@ require 'need_for_type/file_manager'
 
 module NeedForType::States
   class Game < State
-
     def initialize(display_window, difficulty)
       super(display_window)
 
@@ -15,6 +14,7 @@ module NeedForType::States
       @word = ''
 
       @chars_completed = 0
+      @words_completed = 0
       @total_taps = 0
       @correct_taps = 0
 
@@ -53,7 +53,7 @@ module NeedForType::States
 
       @state = :in_game_get_input
 
-      return self
+      self
     end
 
     # Gets input from user and compares it
@@ -69,7 +69,7 @@ module NeedForType::States
 
       calculate_stats
 
-      return self
+      self
     end
 
     # User input is correct
@@ -78,11 +78,13 @@ module NeedForType::States
       @correct_taps += 1
 
       if @chars_completed == @text.size
+        @words_completed += 1
         @state = :end_game
         return self
       end
 
       if @text[@chars_completed] == ' '
+        @words_completed += 1
         @word = ''
       else
         @word += @text[@chars_completed]
@@ -92,7 +94,7 @@ module NeedForType::States
 
       @state = :in_game_get_input
 
-      return self
+      self
     end
 
     # User input is wrong
@@ -103,20 +105,20 @@ module NeedForType::States
 
       @state = :in_game_get_input
 
-      return self
+      self
     end
 
     def handle_end_game
       calculate_stats
 
-      return NeedForType::States::End.new(@display_window, @stats, @difficulty, @text_id)
+      NeedForType::States::End.new(@display_window, @stats, @difficulty, @text_id)
     end
 
     def calculate_stats
       current_time = Time.now
 
       @stats[:total_time] = current_time - @start_time
-      @stats[:wpm] = (@text.split.size * 60) / @stats[:total_time]
+      @stats[:wpm] = (@words_completed * 60) / @stats[:total_time]
       @stats[:accuracy] = (@correct_taps.to_f / @total_taps.to_f) * 100
     end
   end
