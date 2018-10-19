@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## 0.3.5 - 2018/05/25
+
+## Fixed
+- Fixes app crashing when no internet connection is established
+
 ## 0.3.4 - 2018/02/02
 
 ## Fixed
